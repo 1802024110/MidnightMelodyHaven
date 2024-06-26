@@ -2,7 +2,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "forwardPorts": [3000],
+  "forwardPorts": [
+    3000
+  ],
   "name": "深夜月馆",
   "customizations": {
     "vscode": {
@@ -12,7 +14,13 @@
         "nash.awesome-flutter-snippets",
         "circlecodesolution.ccs-flutter-color",
         "formulahendry.code-runner"
-      ]
+      ],
+      "settings": {
+        "code-runner.clearPreviousOutput": true,
+        "code-runner.executorMap": {
+          "dart": "bash ./run.sh"
+        }
+      }
     }
   },
   // 执行flutter pub get，不然可能导致缺少包报错
