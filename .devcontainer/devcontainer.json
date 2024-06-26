@@ -11,5 +11,7 @@
         "Dart-Code.flutter"
       ]
     }
-  }
+  },
+  // 执行flutter pub get，不然可能导致缺少包报错
+  "postCreateCommand": "flutter pub get"
 }
