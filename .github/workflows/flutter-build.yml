@@ -1,0 +1,186 @@
+name: 构建发布Flutter应用
+
+on:
+  push:
+    if: startsWith(github.ref, 'refs/tags/')
+    branches:
+      - main
+
+jobs:
+  build-apk:
+    name: 编译android
+    runs-on: ubuntu-latest
+    steps:
+      - name: 设置Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      - name: 安装依赖项
+        run: flutter pub get
+        working-directory: flutter_app
+
+      - name: 设置java环境
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11.x'
+
+      - name: 编译apk
+        run: flutter build apk --split-per-abi --obfuscate --split-debug-info=build/app/outputs/symbols/release
+        working-directory: flutter_app
+
+      - name: 上传apk到工作流程
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-apk
+          path: flutter_app/build/app/outputs/apk/release/*
+
+  build-linux:
+    name: 编译linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      - name: 设置Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: 安装ninja、libgtk
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+
+      - name: 安装依赖项
+        run: flutter pub get
+        working-directory: flutter_app
+
+      - name: 配置桌面
+        run: flutter config --enable-linux-desktop
+        working-directory: flutter_app
+
+      - name: 编译linux
+        run: flutter build linux
+        working-directory: flutter_app
+
+      - name: 压缩生成的文件
+        run: tar -zcvf ais-linux-64.tar.gz --directory=flutter_app/build/linux/x64/release/bundle .
+
+      - name: 上传到工作流程
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-linux
+          path: ais-linux-64.tar.gz
+
+  build-windows:
+    name: 编译windows
+    runs-on: windows-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      - name: 设置Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.1'
+
+      - name: 安装依赖项
+        run: flutter pub get
+        working-directory: flutter_app
+
+      - name: 启动windows桌面
+        run: flutter config --enable-windows-desktop
+        working-directory: flutter_app
+
+      - name: 编译windows
+        run: flutter build windows
+        working-directory: flutter_app
+
+      - name: 压缩生成的文件
+        run: Compress-Archive -Path "build\windows\runner\Release" -DestinationPath "build\windows\ais-windows-64.zip"
+        working-directory: flutter_app
+
+      - name: 上传到工作流程
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-windows
+          path: flutter_app\build\windows\ais-windows-64.zip
+  build-web:
+    name: 编译web
+    runs-on: ubuntu-latest
+    steps:
+      - name: 设置Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      - name: 安装依赖项
+        run: flutter pub get
+        working-directory: flutter_app
+
+      - name: 编译web
+        run: flutter build web
+        working-directory: flutter_app
+
+      - name: 压缩生成的文件
+        run: zip -9 -r ais-web.zip flutter_app/build/web
+
+      - name: 上传apk到工作流程
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-web
+          path: ais-web.zip
+
+  release:
+    name: 上传包
+    needs: [build-apk, build-linux,build-windows,build-web]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "::set-output name=release_tag::$(date +"%Y.%m.%d_%H-%M")"
+
+      - name: 下载apk
+        uses: actions/download-artifact@v2
+        with:
+          name: build-apk
+          path: artifact
+
+      - name: 下载linux
+        uses: actions/download-artifact@v2
+        with:
+          name: build-linux
+          path: artifact
+
+      - name: 下载windows
+        uses: actions/download-artifact@v2
+        with:
+          name: build-windows
+          path: artifact
+
+      - name: 下载web
+        uses: actions/download-artifact@v2
+        with:
+          name: build-web
+          path: artifact
+
+      - name: 创建releases
+        # 展示当前路径文件
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: ./artifact/*
+
