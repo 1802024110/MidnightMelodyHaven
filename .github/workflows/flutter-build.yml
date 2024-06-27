@@ -102,7 +102,7 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: Compress-Archive -Path "build\windows\runner\Release" -DestinationPath "build\windows\ais-windows-64.zip"
+        run: Compress-Archive -Path "build\windows\x64\runner\Release" -DestinationPath "build\windows\ais-windows-64.zip"
         
 
       - name: 上传到工作流程
