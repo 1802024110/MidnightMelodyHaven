@@ -69,13 +69,13 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: tar -zcvf ais-linux-64.tar.gz --directory=build/linux/x64/release/bundle .
+        run: tar -zcvf linux-64.tar.gz --directory=build/linux/x64/release/bundle .
 
       - name: 上传到工作流程
         uses: actions/upload-artifact@v2
         with:
           name: build-linux
-          path: ais-linux-64.tar.gz
+          path: linux-64.tar.gz
 
   build-windows:
     name: 编译windows
@@ -102,14 +102,14 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: Compress-Archive -Path "build\windows\x64\runner\Release" -DestinationPath "build\windows\ais-windows-64.zip"
+        run: Compress-Archive -Path "build\windows\x64\runner\Release" -DestinationPath "build\windows\windows-64.zip"
         
 
       - name: 上传到工作流程
         uses: actions/upload-artifact@v2
         with:
           name: build-windows
-          path: build\windows\ais-windows-64.zip
+          path: build\windows\windows-64.zip
   build-web:
     name: 编译web
     runs-on: ubuntu-latest
@@ -131,13 +131,13 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: zip -9 -r ais-web.zip build/web
+        run: zip -9 -r web.zip build/web
 
       - name: 上传apk到工作流程
         uses: actions/upload-artifact@v2
         with:
           name: build-web
-          path: ais-web.zip
+          path: web.zip
 
   release:
     name: 上传包
