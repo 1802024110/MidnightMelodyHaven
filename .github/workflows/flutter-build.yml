@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-apk
-          path: forum_mobile/build/app/outputs/apk/release/*
+          path: build/app/outputs/apk/release/*
 
   build-linux:
     name: 编译linux
@@ -69,7 +69,7 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: tar -zcvf ais-linux-64.tar.gz --directory=forum_mobile/build/linux/x64/release/bundle .
+        run: tar -zcvf ais-linux-64.tar.gz --directory=build/linux/x64/release/bundle .
 
       - name: 上传到工作流程
         uses: actions/upload-artifact@v2
@@ -110,7 +110,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-windows
-          path: forum_mobile\build\windows\ais-windows-64.zip
+          path: build\windows\ais-windows-64.zip
   build-web:
     name: 编译web
     runs-on: ubuntu-latest
@@ -132,7 +132,7 @@ jobs:
         
 
       - name: 压缩生成的文件
-        run: zip -9 -r ais-web.zip forum_mobile/build/web
+        run: zip -9 -r ais-web.zip build/web
 
       - name: 上传apk到工作流程
         uses: actions/upload-artifact@v2
