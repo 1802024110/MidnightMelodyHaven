@@ -5,7 +5,7 @@
   "forwardPorts": [
     3000
   ],
-  "name": "ÉîÒ¹ÔÂ¹İ",
+  "name": "Flutterç¯å¢ƒ",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -13,7 +13,13 @@
         "Dart-Code.flutter",
         "nash.awesome-flutter-snippets",
         "circlecodesolution.ccs-flutter-color",
-        "formulahendry.code-runner"
+        "formulahendry.code-runner",
+        "github.vscode-github-actions",
+        "aminer.codegeex",
+        "intellsmi.comment-translate",
+        "hzgood.dart-data-class-generator",
+        "usernamehw.errorlens",
+        "aaron-bond.better-comments"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
@@ -25,10 +31,24 @@
         },
         "editor.formatOnSave": true,
         "editor.bracketPairColorization.enabled": true,
-        "dart.previewFlutterUiGuides": true
-      },
-    }
+        "dart.previewFlutterUiGuides": true,
+        "files.encoding": "utf8",
+        "files.autoGuessEncoding": false,
+        "commentTranslate.multiLineMerge": true,
+        "commentTranslate.hover.string": true,
+        "commentTranslate.hover.variable": true,
+        "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
+        "Codegeex.CommitMessageStyle": "ConventionalCommits"
+      }
+    },
+    "keybindings": [
+      {
+        "key": "alt+enter",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+      }
+    ]
   },
-  // Ö´ĞĞflutter pub get£¬²»È»¿ÉÄÜµ¼ÖÂÈ±ÉÙ°ü±¨´í
+  // åœ¨åˆå§‹åŒ–å®¹å™¨æ—¶å¿…é¡»æ‹‰å–ï¼Œä¸ç„¶ä¼šç¼ºå°‘ä¾èµ–æŠ¥é”™
   "postCreateCommand": "flutter pub get"
 }
