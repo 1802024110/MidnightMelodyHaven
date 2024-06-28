@@ -25,7 +25,9 @@ jobs:
         id: check_version
         run: |
           current_version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
-          previous_version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          previous_version=$(git show HEAD^1:pubspec.yaml | grep '^version:' | awk '{print $2}')
+          echo "当前版本: $current_version"
+          echo "之前版本: $previous_version"
           if [ "$current_version" != "$previous_version" ]; then
             echo "::set-output name=version_changed::true"
           else
