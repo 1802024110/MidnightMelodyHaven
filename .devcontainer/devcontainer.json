@@ -24,10 +24,10 @@
       "settings": {
         "code-runner.clearPreviousOutput": true,
         "code-runner.executorMap": {
-          "dart": "bash ./run.sh"
+          "dart": "flutter run -d web-server --web-hostname 0.0.0.0 --web-port 3000"
         },
         "editor.codeActionsOnSave": {
-          "source.fixAll": true
+          "source.fixAll": "always"
         },
         "editor.formatOnSave": true,
         "editor.bracketPairColorization.enabled": true,
@@ -38,7 +38,8 @@
         "commentTranslate.hover.string": true,
         "commentTranslate.hover.variable": true,
         "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
-        "Codegeex.CommitMessageStyle": "ConventionalCommits"
+        "Codegeex.CommitMessageStyle": "ConventionalCommits",
+        "code-runner.ignoreSelection": true
       }
     },
     "keybindings": [
