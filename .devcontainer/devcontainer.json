@@ -20,12 +20,13 @@
         "hzgood.dart-data-class-generator",
         "usernamehw.errorlens",
         "aaron-bond.better-comments",
-        "robert-brunhage.flutter-riverpod-snippets"
+        "robert-brunhage.flutter-riverpod-snippets",
+        "GaetSchwartz.build-runner"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
         "code-runner.executorMap": {
-          "dart": "flutter run -d web-server --web-hostname 0.0.0.0 --web-port 3000 && flutter pub run build_runner watch"
+          "dart": "flutter run -d web-server --web-hostname 0.0.0.0 --web-port 3000"
         },
         "editor.codeActionsOnSave": {
           "source.fixAll": "always"
