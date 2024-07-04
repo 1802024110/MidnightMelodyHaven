@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:midnight_melody_haven/gen/asstes/assets.gen.dart';
+import 'package:midnight_melody_haven/config/router.dart';
+// ignore: duplicate_import
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -11,8 +13,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: Image(image: Assets.images.start.provider()),
+    return MaterialApp.router(
+      routerConfig: router,
     );
   }
 }
