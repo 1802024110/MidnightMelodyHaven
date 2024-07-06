@@ -22,7 +22,8 @@
         "robert-brunhage.flutter-riverpod-snippets",
         "GaetSchwartz.build-runner",
         "AntoineGtr.flutter-icons",
-        "marscode.marscode-extension"
+        "marscode.marscode-extension",
+        "eamodio.gitlens"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,

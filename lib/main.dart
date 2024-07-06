@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:midnight_melody_haven/config/router.dart';
-// ignore: duplicate_import
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
