@@ -23,19 +23,23 @@
         "GaetSchwartz.build-runner",
         "AntoineGtr.flutter-icons",
         "marscode.marscode-extension",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "marcelovelasquez.flutter-tree",
+        "rexthedev.flutter-preview"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
         "code-runner.executorMap": {
-          "dart": "flutter run -d web-server --web-hostname 0.0.0.0 --web-port 3000"
+          "dart": "bash ./run.bat"
         },
+        "code-runner.runInTerminal": true,
         "editor.codeActionsOnSave": {
           "source.fixAll": "always"
         },
         "editor.formatOnSave": true,
         "editor.bracketPairColorization.enabled": true,
         "dart.previewFlutterUiGuides": true,
+        "flutter-preview.target": "lib/main.dart",
         "files.encoding": "utf8",
         "files.autoGuessEncoding": false,
         "commentTranslate.multiLineMerge": true,
@@ -43,7 +47,7 @@
         "commentTranslate.hover.variable": true,
         // "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
         // "Codegeex.CommitMessageStyle": "ConventionalCommits",
-        "code-runner.ignoreSelection": true,
+        // "code-runner.ignoreSelection": true,
         "marscode.codeCompletionPro": {
           "enableCodeCompletionPro": true
         },
