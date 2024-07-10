@@ -22,7 +22,7 @@ class _IndexPageState extends ConsumerState<IndexPage> {
       ),
       bottomNavigationBar: getDeviceType(context) == DeviceType.Mobile
           ? const Navigation()
-          : Container(),
+          : null,
     );
   }
 }
