@@ -17,15 +17,16 @@
         "github.vscode-github-actions",
         "intellsmi.comment-translate",
         "hzgood.dart-data-class-generator",
-        "usernamehw.errorlens",
         "aaron-bond.better-comments",
         "robert-brunhage.flutter-riverpod-snippets",
         "GaetSchwartz.build-runner",
         "AntoineGtr.flutter-icons",
-        "marscode.marscode-extension",
         "eamodio.gitlens",
         "marcelovelasquez.flutter-tree",
-        "rexthedev.flutter-preview"
+        "rexthedev.flutter-preview",
+        "vinicioslc.adb-interface-vscode",
+        "dungngminh.widgetbracketselection",
+        "aminer.codegeex"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
@@ -45,13 +46,10 @@
         "commentTranslate.multiLineMerge": true,
         "commentTranslate.hover.string": true,
         "commentTranslate.hover.variable": true,
-        // "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
-        // "Codegeex.CommitMessageStyle": "ConventionalCommits",
-        // "code-runner.ignoreSelection": true,
-        "marscode.codeCompletionPro": {
-          "enableCodeCompletionPro": true
-        },
-        "typescript.locale": "zh-CN"
+        "Codegeex.CompletionModel": "CodeGeeX Pro[Beta]",
+        "Codegeex.CommitMessageStyle": "ConventionalCommits",
+        "code-runner.ignoreSelection": true,
+        "typescript.locale": "zh-CN",
       }
     },
     "keybindings": [
@@ -59,6 +57,11 @@
         "key": "alt+enter",
         "command": "editor.action.quickFix",
         "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+      },
+      {
+        "key": "alt+w",
+        "command": "-widget_bracket_selection.highlight",
+        "when": "editorFocus"
       }
     ]
   },

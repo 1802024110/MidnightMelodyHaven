@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:midnight_melody_haven/config/router.dart';
 
 void main() {
-  FlutterNativeSplash.remove();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -13,6 +12,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 移除掉原生启动画面
+    FlutterNativeSplash.remove();
     return MaterialApp.router(routerConfig: router);
   }
 }
