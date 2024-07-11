@@ -50,6 +50,14 @@ dependencies:
   animations: ^2.0.11
   # 持久存储
   shared_preferences: ^2.2.3
+  # 图标库
+  font_awesome_flutter: ^10.7.0
+  # 屏幕大小工具
+  flutter_screenutil: ^5.9.3
+  # i18n
+  # 可使用的国家码
+  # https://api.flutter-io.cn/flutter/flutter_localizations/GlobalMaterialLocalizations-class.html
+  easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +92,7 @@ flutter:
   assets:
     - assets/images/start.png
     - assets/images/1.5x/start.png
+    - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
