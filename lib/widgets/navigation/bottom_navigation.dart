@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BottomNavigation extends ConsumerStatefulWidget {
   const BottomNavigation({super.key});
@@ -13,13 +14,13 @@ class BottomNavigation extends ConsumerStatefulWidget {
 
 class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   final List<BottomNavigationBarItem> _bottomNavigationBarItem = [
-    BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.home), label: tr("home")),
     BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.user), label: 'Profile1'),
+        icon: Icon(FontAwesomeIcons.user), label: tr("categorization")),
     BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.user), label: 'Profile2'),
+        icon: Icon(FontAwesomeIcons.user), label: tr("social")),
     BottomNavigationBarItem(
-        icon: Icon(FontAwesomeIcons.user), label: 'Profile3')
+        icon: Icon(FontAwesomeIcons.user), label: tr("mine"))
   ];
 
   @override
@@ -28,7 +29,6 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
       items: _bottomNavigationBarItem,
       currentIndex: 0,
       onTap: (value) {},
-      type: BottomNavigationBarType.shifting,
       // 自定义选中项的颜色
       selectedItemColor: const Color.fromARGB(255, 117, 193, 255),
 

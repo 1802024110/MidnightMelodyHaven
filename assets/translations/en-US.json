@@ -1,3 +1,6 @@
 {
-    "title":"Hello, internationalization!"
+    "home": "home",
+    "categorization":"categorization",
+    "social":"social",
+    "mine":"mine"
 }
