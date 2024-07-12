@@ -51,7 +51,7 @@ dependencies:
   # 持久存储
   shared_preferences: ^2.2.3
   # 图标库
-  font_awesome_flutter: ^10.7.0
+  flutter_tabler_icons: ^1.34.0
   # 屏幕大小工具
   flutter_screenutil: ^5.9.3
   # i18n
