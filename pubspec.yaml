@@ -58,6 +58,11 @@ dependencies:
   # 可使用的国家码
   # https://api.flutter-io.cn/flutter/flutter_localizations/GlobalMaterialLocalizations-class.html
   easy_localization: ^3.0.7
+  # 色彩管理，主题生成器
+  # https://rydmike.com/flexcolorscheme/themesplayground-v7-1/
+  flex_color_scheme: ^7.3.1
+  # widgets状态管理
+  flutter_hooks: ^0.20.5
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,10 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:midnight_melody_haven/config/color_scheme.dart';
 import 'package:midnight_melody_haven/config/router.dart';
 
 Future<void> main() async {
@@ -32,6 +34,8 @@ class MyApp extends ConsumerWidget {
             ? Size(430, 932)
             : Size(720, 1140),
         child: MaterialApp.router(
+          theme: FlexThemeData.light(colors: MyColorScheme.light),
+          darkTheme: FlexThemeData.dark(colors: MyColorScheme.dark),
           routerConfig: router,
           supportedLocales: context.supportedLocales,
           locale: context.locale,

@@ -12,8 +12,35 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/1.5x
+  $AssetsImages15xGen get a1 => const $AssetsImages15xGen();
+
   /// File path: assets/images/start.png
   AssetGenImage get start => const AssetGenImage('assets/images/start.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [start];
+}
+
+class $AssetsTranslationsGen {
+  const $AssetsTranslationsGen();
+
+  /// File path: assets/translations/en-US.json
+  String get enUS => 'assets/translations/en-US.json';
+
+  /// File path: assets/translations/zh-CN.json
+  String get zhCN => 'assets/translations/zh-CN.json';
+
+  /// List of all assets
+  List<String> get values => [enUS, zhCN];
+}
+
+class $AssetsImages15xGen {
+  const $AssetsImages15xGen();
+
+  /// File path: assets/images/1.5x/start.png
+  AssetGenImage get start =>
+      const AssetGenImage('assets/images/1.5x/start.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [start];
@@ -23,6 +50,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }
 
 class AssetGenImage {

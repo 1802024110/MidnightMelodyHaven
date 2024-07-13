@@ -27,8 +27,7 @@
         "vinicioslc.adb-interface-vscode",
         "dungngminh.widgetbracketselection",
         "aminer.codegeex",
-        "evils.vscode-flutter-insert-remove-helper",
-        "tomasvergara.vscode-fontawesome-gallery"
+        "evils.vscode-flutter-insert-remove-helper"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
