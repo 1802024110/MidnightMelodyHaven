@@ -9,17 +9,11 @@ import 'package:midnight_melody_haven/widgets/navigation/bottom_navigation.dart'
 import 'package:flutter_screenutil/flutter_screenutil.dart' as screenutil;
 import 'package:midnight_melody_haven/widgets/navigation/side_navigation.dart';
 
-class IndexPage extends ConsumerStatefulWidget {
-  const IndexPage({super.key});
+class IndexPae extends ConsumerWidget {
+  const IndexPae({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _IndexPageState();
-}
-
-class _IndexPageState extends ConsumerState<IndexPage> {
-  PageController pageController = PageController(initialPage: 0);
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
           body: Row(
