@@ -1,36 +1,37 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:midnight_melody_haven/riverpod/page_controller.dart';
 
-class BottomNavigation extends ConsumerStatefulWidget {
+final List<BottomNavigationBarItem> _bottomNavigationBarItem = [
+  BottomNavigationBarItem(icon: Icon(TablerIcons.home), label: tr("home")),
+  BottomNavigationBarItem(
+      icon: Icon(TablerIcons.category), label: tr("categorization")),
+  BottomNavigationBarItem(
+      icon: Icon(TablerIcons.social), label: tr("social")),
+  BottomNavigationBarItem(icon: Icon(TablerIcons.user), label: tr("mine"))
+];
+class BottomNavigation extends HookConsumerWidget {
   const BottomNavigation({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _BottomNavigationState();
-}
-
-class _BottomNavigationState extends ConsumerState<BottomNavigation> {
-  final List<BottomNavigationBarItem> _bottomNavigationBarItem = [
-    BottomNavigationBarItem(icon: Icon(TablerIcons.home), label: tr("home")),
-    BottomNavigationBarItem(
-        icon: Icon(TablerIcons.category), label: tr("categorization")),
-    BottomNavigationBarItem(
-        icon: Icon(TablerIcons.social), label: tr("social")),
-    BottomNavigationBarItem(icon: Icon(TablerIcons.user), label: tr("mine"))
-  ];
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var  pageController = ref.watch(mainPageControllerProvider);
+    var index = useState(0);
     return ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(6)),
       child: BottomNavigationBar(
         items: _bottomNavigationBarItem,
-        currentIndex: 0,
+        currentIndex: index.value,
         type: BottomNavigationBarType.fixed,
-        onTap: (value) {},
+        onTap: (value) {
+          pageController.jumpToPage(value);
+          index.value = value;
+          print(value);
+        },
         // 导航栏的阴影大小
         elevation: 8,
 
@@ -58,3 +59,5 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     );
   }
 }
+
+

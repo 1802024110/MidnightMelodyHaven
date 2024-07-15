@@ -5,7 +5,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const IndexPage(),
+      builder: (context, state) => const IndexPae(),
     ),
   ],
 );

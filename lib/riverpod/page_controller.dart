@@ -1,26 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-@Riverpod(keepAlive: true)
-class PageControllerNotifier extends StateNotifier<PageController> {
-  PageControllerNotifier() : super(PageController());
+part 'page_controller.g.dart';
 
-  void jumpToPage(int page) {
-    state.jumpToPage(page);
-  }
-
-  void nextPage({required Duration duration, required Curve curve}) {
-    state.nextPage(duration: duration, curve: curve);
-  }
-
-  void previousPage({required Duration duration, required Curve curve}) {
-    state.previousPage(duration: duration, curve: curve);
-  }
-
-  @override
-  void dispose() {
-    state.dispose();
-    super.dispose();
-  }
+@riverpod
+Raw<PageController> mainPageController(MainPageControllerRef ref) {
+  return PageController();
 }
+

@@ -4,9 +4,9 @@ import 'package:midnight_melody_haven/page/category/index.dart';
 import 'package:midnight_melody_haven/page/home/index.dart';
 import 'package:midnight_melody_haven/page/mine/index.dart';
 import 'package:midnight_melody_haven/page/social/index.dart';
+import 'package:midnight_melody_haven/riverpod/page_controller.dart';
 import 'package:midnight_melody_haven/utils/device.dart';
 import 'package:midnight_melody_haven/widgets/navigation/bottom_navigation.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart' as screenutil;
 import 'package:midnight_melody_haven/widgets/navigation/side_navigation.dart';
 
 class IndexPae extends ConsumerWidget {
@@ -14,6 +14,7 @@ class IndexPae extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var pageController = ref.watch(mainPageControllerProvider);
     return SafeArea(
       child: Scaffold(
           body: Row(
@@ -25,10 +26,12 @@ class IndexPae extends ConsumerWidget {
                   // reverse: false,
                   // pageSnapping: true,
                   // physics: ClampingScrollPhysics(),
-                  // onPageChanged: (index) {
-                  //   print("------$index");
-                  // },
-                  // controller: pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (index) {
+                    print(index);
+                    // pageController.jumpToPage(index);
+                  },
+                  controller: pageController,
                   allowImplicitScrolling: true,
                   children: const [
                     HomePage(),
