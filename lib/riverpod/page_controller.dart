@@ -8,4 +8,3 @@ part 'page_controller.g.dart';
 Raw<PageController> mainPageController(MainPageControllerRef ref) {
   return PageController();
 }
-

@@ -38,6 +38,7 @@ dependencies:
   # 状态管理
   flutter_riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
+  hooks_riverpod: ^2.5.1
   # 路由
   go_router: ^14.2.0
   # 启动页
@@ -63,7 +64,6 @@ dependencies:
   flex_color_scheme: ^7.3.1
   # widgets状态管理
   flutter_hooks: ^0.20.5
-  hooks_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
