@@ -20,4 +20,7 @@
     "window.autoDetectColorScheme": true,
     "workbench.layoutControl.enabled": false,
     "inlineChat.mode": "preview",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true
 }
