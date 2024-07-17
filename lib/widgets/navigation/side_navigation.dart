@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
@@ -12,10 +13,27 @@ class SideNavigation extends ConsumerStatefulWidget {
 }
 
 class _SideNavigationState extends ConsumerState<SideNavigation> {
+  int selectedIndex = 0; // 添加selectedIndex变量
+
+  final sideBarItems = [
+    SideBarItem(
+      title: '首页',
+      icon: Icon(
+        TablerIcons.home,
+        color: Colors.black,
+      ),
+    ),
+    SideBarItem(
+      title: '我的',
+      icon: Icon(
+        TablerIcons.user,
+        color: Colors.black,
+      ),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    const double iconSize = 24.0;
-
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -34,42 +52,65 @@ class _SideNavigationState extends ConsumerState<SideNavigation> {
               ),
             ),
           ),
-          SideBarItem(),
-          Row(children: [
-            Container(
-              width: 3,
-              //高度填充完
-              height: 10,
-              color: Colors.blue,
-            ),
-            Expanded(child: ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('安全'),
+          Text("当前索引：$selectedIndex"),
+          ...sideBarItems.asMap().entries.map((entry) {
+            int idx = entry.key;
+            SideBarItem item = entry.value;
+            return SideBarItemWidget(
+              item: item,
+              isSelected: selectedIndex == idx, // 传递是否选中状态
               onTap: () {
-                // 更新主页的逻辑
+                setState(() {
+                  selectedIndex = idx; // 更新选中的索引
+                });
               },
-            ))
-          ],)
+            );
+          }),
         ],
       ),
     );
   }
+}
 
-  Row SideBarItem() {
-    return Row(children: [
-          Container(
-            width: 3,
-            //高度填充完
-            height: 10,
-           color: Colors.blue,
+class SideBarItem {
+  final String title;
+  final Widget icon;
+
+  const SideBarItem({required this.title, required this.icon});
+}
+
+class SideBarItemWidget extends StatelessWidget {
+  final SideBarItem item;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const SideBarItemWidget(
+      {required this.item,
+      required this.isSelected,
+      required this.onTap,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap, // 添加点击事件
+      child: Row(
+        children: [
+          AnimatedContainer(
+            width: isSelected ? 3 : 0, // 宽度根据选中状态变化
+            height: 40, // 固定高度
+            color: Colors.blue,
+            duration: Duration(milliseconds: 300), // 动画时长
           ),
-          Expanded(child: ListTile(
-            leading: Icon(Icons.home),
-            title: Text('首页'),
-            onTap: () {
-              // 更新主页的逻辑
-            },
-          ))
-        ],);
+          Expanded(
+            child: ListTile(
+              leading: item.icon,
+              title: Text(item.title),
+              onTap: onTap, // 更新主页的逻辑
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
