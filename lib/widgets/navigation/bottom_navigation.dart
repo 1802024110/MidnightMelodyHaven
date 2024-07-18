@@ -30,7 +30,6 @@ class BottomNavigation extends HookConsumerWidget {
         onTap: (value) {
           pageController.jumpToPage(value);
           index.value = value;
-          print(value);
         },
         // 导航栏的阴影大小
         elevation: 8,
