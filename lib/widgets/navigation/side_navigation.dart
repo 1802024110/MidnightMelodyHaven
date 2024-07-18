@@ -9,8 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../riverpod/page_controller.dart';
 
-final selectedPageIndexProvider = StateProvider<int>((ref) => 0); // 初始选中首页
-
 class SideNavigation extends ConsumerStatefulWidget {
   const SideNavigation({super.key});
 
@@ -83,15 +81,15 @@ class SideBarItem extends HookConsumerWidget {
         pageController.jumpToPage(pageIndex);
         ref.read(selectedPageIndexProvider.notifier).state =
             pageIndex; // 更新选中状态
-        print("Selected page index: $pageIndex"); // 打印状态以验证
       },
       child: Row(
         children: [
           AnimatedContainer(
-            width: isSelected ? 20 : 0, // 增加宽度以使动画更明显
+            width: isSelected ? 10 : 0, // 增加宽度以使动画更明显
+            // 高度填满
             height: 40,
             color: Colors.red, // 更改颜色以确保可见
-            duration: Duration(milliseconds: 500), // 增加动画时长
+            duration: Duration(milliseconds: 300), // 增加动画时长
             curve: Curves.easeInOut, // 添加动画曲线
           ),
           Expanded(

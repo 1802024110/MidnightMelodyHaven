@@ -8,3 +8,6 @@ part 'page_controller.g.dart';
 Raw<PageController> mainPageController(MainPageControllerRef ref) {
   return PageController();
 }
+
+@riverpod
+int selectedPageIndex  (SelectedPageIndexRef ref) => 0; // 初始选中首页
