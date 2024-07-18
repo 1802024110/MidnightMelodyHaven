@@ -1,6 +1,7 @@
 {
     "IDX.aI.enableInlineCompletion": true,
     "IDX.aI.enableCodebaseIndexing": true,
+    "IDX.corgiMode": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": "always"
       },
