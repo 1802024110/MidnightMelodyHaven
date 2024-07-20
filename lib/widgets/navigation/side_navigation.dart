@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,8 +23,7 @@ class _SideNavigationState extends ConsumerState<SideNavigation> {
     final selectedPageIndex = ref.watch(selectedPageIndexProvider);
 
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
@@ -39,65 +39,43 @@ class _SideNavigationState extends ConsumerState<SideNavigation> {
               ),
             ),
           ),
-          // 在这里添加 SideBarItem 实例
-          SideBarItem(
-            title: '首页',
-            icon: Icon(Icons.home),
-            isSelected: selectedPageIndex == 0, // 根据状态设置 isSelected
-            pageIndex: 0,
-          ),
-          SideBarItem(
-            title: '设置',
-            icon: Icon(Icons.settings),
-            isSelected: selectedPageIndex == 1, // 根据状态设置 isSelected
-            pageIndex: 1,
-          ),
-          // 添加更多 SideBarItem 实例...
-        ],
-      ),
-    );
-  }
-}
-
-class SideBarItem extends HookConsumerWidget {
-  final String title;
-  final Widget icon;
-  final bool isSelected;
-  final int pageIndex;
-
-  const SideBarItem(
-      {super.key,
-      required this.title,
-      required this.icon,
-      required this.pageIndex,
-      required this.isSelected});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = ref.watch(mainPageControllerProvider);
-    final selectedPageIndex = ref.watch(selectedPageIndexProvider);
-    return GestureDetector(
-      onTap: () {
-        pageController.jumpToPage(pageIndex);
-        ref.read(selectedPageIndexProvider.notifier).state =
-            pageIndex; // 更新选中状态
-      },
-      child: Row(
-        children: [
-          AnimatedContainer(
-            width: isSelected ? 10 : 0, // 增加宽度以使动画更明显
-            // 高度填满
-            height: 40,
-            color: Colors.red, // 更改颜色以确保可见
-            duration: Duration(milliseconds: 300), // 增加动画时长
-            curve: Curves.easeInOut, // 添加动画曲线
-          ),
           Expanded(
-            child: ListTile(
-              leading: icon,
-              title: Text(title),
+            child: Row(
+              children: [
+                LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Container(
+                      width: 10,
+                      height: constraints.maxHeight,
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Transform.translate(
+                        offset: Offset(0, 30),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            height: 10,
+                            width: 10,
+                            decoration: BoxDecoration(color: Colors.red),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.grey,
+                    child: Column(
+                      // 添加背景颜色
+                      children: const [
+                        Text("数据")
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
+          )
         ],
       ),
     );
