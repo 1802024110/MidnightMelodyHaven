@@ -10,17 +10,41 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../riverpod/page_controller.dart';
 
-class SideNavigation extends ConsumerStatefulWidget {
+class SideNavigation extends HookConsumerWidget {
   const SideNavigation({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SideNavigationState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mainPageController = ref.watch(mainPageControllerProvider);
+    final selectIndex = useState(0);
+    final scrollController = useScrollController(); // Use ScrollController
 
-class _SideNavigationState extends ConsumerState<SideNavigation> {
-  @override
-  Widget build(BuildContext context) {
-    final selectedPageIndex = ref.watch(selectedPageIndexProvider);
+    final navigationItems = [
+      NavigationItem(
+        icon: Icon(TablerIcons.home),
+        title: '首页'.tr(),
+        selected: selectIndex.value == 0,
+        pageIndex: 0,
+      ),
+      NavigationItem(
+        icon: Icon(TablerIcons.search),
+        title: '搜索'.tr(),
+        selected: selectIndex.value == 1,
+        pageIndex: 1,
+      ),
+      NavigationItem(
+        icon: Icon(TablerIcons.heart),
+        title: '收藏'.tr(),
+        selected: selectIndex.value == 2,
+        pageIndex: 2,
+      ),
+      NavigationItem(
+        icon: Icon(TablerIcons.user),
+        title: '我的'.tr(),
+        selected: selectIndex.value == 3,
+        pageIndex: 3,
+      ),
+    ];
 
     return Drawer(
       child: Column(
@@ -40,44 +64,95 @@ class _SideNavigationState extends ConsumerState<SideNavigation> {
             ),
           ),
           Expanded(
-            child: Row(
-              children: [
-                LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return Container(
-                      width: 10,
-                      height: constraints.maxHeight,
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Transform.translate(
-                        offset: Offset(0, 30),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            height: 10,
-                            width: 10,
-                            decoration: BoxDecoration(color: Colors.red),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final fixedTileHeight = 60.0; // Fixed height for each navigation item
+                final indicatorHeight = fixedTileHeight * 0.6; // Red indicator bar height
+                final topOffset = (fixedTileHeight - indicatorHeight) / 2; // Center the indicator
+
+                return Stack(
+                  children: [
+                    // The red indicator bar with animation
+                    AnimatedPositioned(
+                      duration: Duration(milliseconds: 300),
+                      top: selectIndex.value * fixedTileHeight + topOffset,
+                      left: 0,
+                      child: Container(
+                        height: indicatorHeight,
+                        width: 10,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(6),
+                            bottomRight: Radius.circular(6),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.grey,
-                    child: Column(
-                      // 添加背景颜色
-                      children: const [
-                        Text("数据")
-                      ],
                     ),
-                  ),
-                )
-              ],
+                    // List tiles
+                    ListView.builder(
+                      controller: scrollController,
+                      itemCount: navigationItems.length,
+                      itemBuilder: (context, index) {
+                        final item = navigationItems[index];
+                        return GestureDetector(
+                          onTap: () {
+                            mainPageController.jumpToPage(item.pageIndex);
+                            selectIndex.value = item.pageIndex;
+                          },
+                          child: Container(
+                            height: fixedTileHeight,
+                            color: Colors.transparent,
+                            padding: EdgeInsets.only(left: 20), // Add some space between indicator and text
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                item,
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
-          )
+          ),
         ],
       ),
+    );
+  }
+}
+
+// 自定义导航项
+class NavigationItem extends HookConsumerWidget {
+  final Icon icon;
+  final String title;
+  final bool selected;
+  final int pageIndex;
+
+  const NavigationItem({
+    required this.icon,
+    required this.title,
+    required this.selected,
+    required this.pageIndex,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Row(
+      children: [
+        icon,
+        SizedBox(width: 10),
+        Text(
+          title,
+          style: TextStyle(
+            color: selected ? Colors.red : Colors.black,
+          ),
+        ),
+      ],
     );
   }
 }
