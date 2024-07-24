@@ -19,6 +19,8 @@ class SideNavigation extends HookConsumerWidget {
     final selectIndex = useState(0);
     final scrollController = useScrollController(); // Use ScrollController
 
+    const indicatorWidth = 6.0; // Define a constant for the indicator width
+
     final navigationItems = [
       NavigationItem(
         icon: Icon(TablerIcons.home),
@@ -66,9 +68,12 @@ class SideNavigation extends HookConsumerWidget {
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final fixedTileHeight = 60.0; // Fixed height for each navigation item
-                final indicatorHeight = fixedTileHeight * 0.6; // Red indicator bar height
-                final topOffset = (fixedTileHeight - indicatorHeight) / 2; // Center the indicator
+                const fixedTileHeight =
+                    60.0; // Fixed height for each navigation item
+                const indicatorHeight =
+                    fixedTileHeight * 0.6; // Red indicator bar height
+                const topOffset = (fixedTileHeight - indicatorHeight) /
+                    2; // Center the indicator
 
                 return Stack(
                   children: [
@@ -79,9 +84,9 @@ class SideNavigation extends HookConsumerWidget {
                       left: 0,
                       child: Container(
                         height: indicatorHeight,
-                        width: 10,
+                        width: indicatorWidth,
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Colors.blue,
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(6),
                             bottomRight: Radius.circular(6),
@@ -102,8 +107,10 @@ class SideNavigation extends HookConsumerWidget {
                           },
                           child: Container(
                             height: fixedTileHeight,
-                            color: Colors.transparent,
-                            padding: EdgeInsets.only(left: 20), // Add some space between indicator and text
+                            color: Color.fromARGB(0, 77, 181, 250),
+                            padding: EdgeInsets.only(
+                                left: indicatorWidth +
+                                    6), // Use the same constant here
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -142,17 +149,37 @@ class NavigationItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      children: [
-        icon,
-        SizedBox(width: 10),
-        Text(
-          title,
-          style: TextStyle(
-            color: selected ? Colors.red : Colors.black,
-          ),
+    return Container(
+      padding: EdgeInsets.all(10),
+      // 添加蓝色到白色横向渐变背景
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: const [
+            Colors.blue,
+            Colors.white,
+          ],
         ),
-      ],
+        // 左上角和左下角6像素圆角
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(36),
+          bottomLeft: Radius.circular(36),
+        ),
+      ),
+      child: Row(
+        children: [
+          icon,
+          SizedBox(width: 10),
+          Text(
+            title,
+            style: TextStyle(
+              color:
+                  selected ? Color.fromARGB(255, 241, 212, 130) : Colors.grey,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

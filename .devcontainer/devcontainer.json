@@ -27,7 +27,8 @@
         "vinicioslc.adb-interface-vscode",
         "dungngminh.widgetbracketselection",
         "aminer.codegeex",
-        "evils.vscode-flutter-insert-remove-helper"
+        "evils.vscode-flutter-insert-remove-helper",
+        "GoogleCloudTools.cloudcode"
       ],
       "settings": {
         "code-runner.clearPreviousOutput": true,
