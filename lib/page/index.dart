@@ -23,10 +23,6 @@ class IndexPae extends ConsumerWidget {
               if (getDeviceType(context) != DeviceType.Mobile) SideNavigation(),
               Expanded(
                 child: PageView(
-                  // scrollDirection: Axis.horizontal,
-                  // reverse: false,
-                  // pageSnapping: true,
-                  // physics: ClampingScrollPhysics(),
                   physics: NeverScrollableScrollPhysics(),
                   onPageChanged: (index) {
                     print(index);
@@ -34,6 +30,7 @@ class IndexPae extends ConsumerWidget {
                   },
                   controller: pageController,
                   allowImplicitScrolling: true,
+
                   children: const [
                     HomePage(),
                     CategoryPage(),

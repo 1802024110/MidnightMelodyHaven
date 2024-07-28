@@ -19,7 +19,7 @@ class SideNavigation extends HookConsumerWidget {
     final selectIndex = useState(0);
     final scrollController = useScrollController(); // Use ScrollController
 
-    const indicatorWidth = 8.0; // Define a constant for the indicator width
+    const indicatorWidth = 6.0; // Define a constant for the indicator width
 
     final navigationItems = [
       NavigationItem(
@@ -80,16 +80,18 @@ class SideNavigation extends HookConsumerWidget {
                     // The red indicator bar with animation
                     AnimatedPositioned(
                       duration: Duration(milliseconds: 300),
+
+                      curve: Curves.easeInOut,
                       top: selectIndex.value * fixedTileHeight + topOffset,
-                      left: 0,
+                      left: - indicatorWidth,
                       child: Container(
                         height: indicatorHeight,
-                        width: indicatorWidth,
+                        width: indicatorWidth * 2,
                         decoration: BoxDecoration(
                           color: Color.fromARGB(255, 62, 100, 252),
                           borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(6),
-                            bottomRight: Radius.circular(6),
+                            topRight: Radius.circular(indicatorWidth),
+                            bottomRight: Radius.circular(indicatorWidth),
                           ),
                         ),
                       ),
@@ -111,13 +113,11 @@ class SideNavigation extends HookConsumerWidget {
                             padding: EdgeInsets.only(
                                 left: indicatorWidth +
                                     6), // Use the same constant here
-                            child: Expanded(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  item,
-                                ],
-                              ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(child: item),
+                              ],
                             ),
                           ),
                         );
@@ -151,41 +151,39 @@ class NavigationItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        // 添加蓝色到白色横向渐变背景
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: const [
-              Color.fromARGB(255, 203, 212, 255),
-              Color.fromARGB(255, 255, 255, 255),
-            ],
-          ),
-          // 左上角和左下角6像素圆角
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(36),
-            bottomLeft: Radius.circular(36),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon.icon,
-              color: selected ? Color.fromARGB(255, 228, 171, 99) : Colors.grey,
-            ),
-            SizedBox(width: 10),
-            Text(
-              title,
-              style: TextStyle(
-                color:
-                    selected ? Color.fromARGB(255, 228, 171, 99) : Colors.grey,
-              ),
-            ),
+    return Container(
+      padding: EdgeInsets.all(10),
+      // 添加蓝色到白色横向渐变背景
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: const [
+            Color.fromARGB(255, 203, 212, 255),
+            Color.fromARGB(255, 255, 255, 255),
           ],
         ),
+        // 左上角和左下角6像素圆角
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(36),
+          bottomLeft: Radius.circular(36),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon.icon,
+            color: selected ? Color.fromARGB(255, 228, 171, 99) : Colors.grey,
+          ),
+          SizedBox(width: 10),
+          Text(
+            title,
+            style: TextStyle(
+              color:
+                  selected ? Color.fromARGB(255, 228, 171, 99) : Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }
