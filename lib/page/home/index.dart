@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:midnight_melody_haven/utils/device.dart';
+import 'package:midnight_melody_haven/widgets/media/my_video_play.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -13,6 +12,16 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Text("首页");
+    return Stack(
+      children: [
+        // 一个视频播放器垫底，其它控件浮在它上面
+        Positioned.fill(
+          child: MyVideoPlay(),
+        ),
+        Positioned.fill(
+          child: Container(color: Colors.transparent),
+        )
+      ],
+    );
   }
 }

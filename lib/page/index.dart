@@ -17,6 +17,7 @@ class IndexPae extends ConsumerWidget {
     var pageController = ref.watch(mainPageControllerProvider);
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
           body: Row(
             children: [
               if (getDeviceType(context) != DeviceType.Mobile) SideNavigation(),
