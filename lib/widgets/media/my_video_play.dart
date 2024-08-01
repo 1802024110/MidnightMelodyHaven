@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -19,37 +20,47 @@ class MyVideoPlay extends HookConsumerWidget {
     final backgroundImage = useState<Uint8List?>(null);
 
     useEffect(() {
-      player.value?.open(playerMedia).then((_) async {
-        // 获取视频的宽高比
-        if (player.value?.state.width != null &&
-            player.value?.state.height != null) {
-          aspectRatio.value =
-              player.value!.state.width! / player.value!.state.height!;
-        }
-
+      // 开始监控播放器状态变化
+      final subscription = player.value?.stream.position.listen((state) async {
         // 获取视频的第一帧作为背景图像
-        final frame = await player.value!.screenshot();
-        backgroundImage.value = frame;
+        try {
+          final frame = await player.value?.screenshot();
+          if (frame != null && backgroundImage.value == null) {
+            backgroundImage.value = frame;
+          }
+        } catch (e) {
+          print('Failed to capture screenshot: $e');
+        }
       });
 
-      // Clean up the player when the widget is disposed
+      player.value?.open(playerMedia);
+
+      // 清理播放器
       return () {
         player.value?.dispose();
+        subscription?.cancel();
       };
-    }, []);
+    }, const[]);
+
+    final animationController = useAnimationController(
+      duration: const Duration(seconds: 1), // 渐变时长
+    )..forward();
 
     return Stack(
       children: [
         // 背景封面图片
         if (backgroundImage.value != null)
           Positioned.fill(
-            child: ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
-              child: Image.memory(
-                backgroundImage.value!,
-                fit: BoxFit.cover,
-                color: Colors.black.withOpacity(0.8),
-                colorBlendMode: BlendMode.dstATop,
+            child: FadeTransition(
+              opacity: animationController.drive(CurveTween(curve: Curves.easeIn)),
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                child: Image.memory(
+                  backgroundImage.value!,
+                  fit: BoxFit.cover,
+                  color: Colors.black.withOpacity(0.8),
+                  colorBlendMode: BlendMode.dstATop,
+                ),
               ),
             ),
           ),
